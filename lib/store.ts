@@ -1,4 +1,20 @@
 import { create } from "zustand";
+import { User, getUsers } from "@/lib/api";
+
+interface UserStore {
+  users: User[];
+  setUsers: (users: User[]) => void;
+  fetchUsers: () => Promise<void>;
+}
+
+export const useUserStore = create<UserStore>((set) => ({
+  users: [],
+  setUsers: (users) => set({ users }),
+  fetchUsers: async () => {
+    const data = await getUsers();
+    set({ users: data });
+  },
+}));
 
 interface UserCardState {
   selectedUser: number | null;
@@ -8,15 +24,6 @@ interface UserCardState {
   setDeleteCallback: (callback: (userId: number) => void) => void;
   onEdit: () => void;
   onDelete: () => void;
-}
-
-interface UserFormDialogState {
-  isOpen: boolean;
-  onOpen: () => void;
-  onClose: () => void;
-  onSuccessCallback: (() => void) | null;
-  onSuccess: () => void;
-  setSuccessCallback: (callback: () => void) => void;
 }
 
 export const useUserCardStore = create<UserCardState>((set, get) => ({
@@ -37,15 +44,26 @@ export const useUserCardStore = create<UserCardState>((set, get) => ({
   },
 }));
 
+interface UserFormDialogState {
+  isOpen: boolean;
+  selectedUser: User | null;
+  onOpen: (user?: User) => void;
+  onClose: () => void;
+  onSuccessCallback: (() => void) | null;
+  onSuccess: () => void;
+  setSuccessCallback: (callback: () => void) => void;
+}
+
 export const useUserFormDialogStore = create<UserFormDialogState>(
   (set, get) => ({
     isOpen: false,
-    onOpen: () => set({ isOpen: true }),
-    onClose: () => set({ isOpen: false }),
+    selectedUser: null,
+    onOpen: (user?: User) => set({ isOpen: true, selectedUser: user ?? null }),
+    onClose: () => set({ isOpen: false, selectedUser: null }),
     onSuccessCallback: null,
     onSuccess: () => {
-      get().onSuccessCallback?.(); // Execute the callback if it exists
-      set({ onSuccessCallback: null }); // Reset the callback
+      get().onSuccessCallback?.();
+      set({ onSuccessCallback: null });
     },
     setSuccessCallback: (callback: () => void) => {
       set({ onSuccessCallback: callback });
