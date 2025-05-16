@@ -49,7 +49,7 @@ export default function UserCard({ user, onSuccess }: UserCardProps) {
           damping: 18,
         },
       }}
-      className="relative group w-full bg-white rounded-xl shadow/5 p-4 flex items-center gap-6 border border-lime-300/0 hover:border-lime-300 transition-all ease-in-out"
+      className="relative group w-full bg-white rounded-xl shadow/5 p-4 flex items-center gap-6 border border-lime-300/0 active:border-lime-300 hover:border-lime-300 transition-all ease-in-out"
     >
       {/* Avatar */}
       <img
@@ -59,7 +59,7 @@ export default function UserCard({ user, onSuccess }: UserCardProps) {
         className="h-32 aspect-square rounded-xl object-cover"
       />
 
-      <div className="opacity-0 group-hover:opacity-100 overflow-hidden absolute -top-2 -right-2 transition-all ease-in-out delay-100">
+      <div className="md:opacity-0 md:group-hover:opacity-100 overflow-hidden absolute top-1 right-1 md:-top-2 md:-right-2 transition-all ease-in-out delay-100">
         {!deleting && (
           <HoverCard>
             <HoverCardTrigger>
