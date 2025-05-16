@@ -1,7 +1,6 @@
 "use client";
 
 import { ReactNode } from "react";
-import { motion } from "motion/react";
 import { Toaster } from "@/components/ui/sonner";
 
 import ScrollSmooth from "./ScrollSmooth";
