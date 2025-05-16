@@ -2,10 +2,17 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
+
+const navItems = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+];
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header
@@ -26,18 +33,23 @@ export default function Header() {
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-          <Link href="/" className="hover:underline transition">
-            Home
-          </Link>
-          <Link href="/about" className="hover:underline transition">
-            About
-          </Link>
+          {navItems.map(({ label, href }) => (
+            <Link
+              key={href}
+              href={href}
+              className={`transition hover:underline ${
+                pathname === href ? "font-semibold text-black" : "text-gray-700"
+              }`}
+            >
+              {label}
+            </Link>
+          ))}
         </nav>
 
         {/* Mobile menu toggle */}
         <button
           className="md:hidden p-2 text-gray-700"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setIsOpen((prev) => !prev)}
           aria-label="Toggle Menu"
         >
           {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -48,20 +60,20 @@ export default function Header() {
       {isOpen && (
         <div className="md:hidden px-4 py-2">
           <nav className="flex flex-col gap-2 text-sm font-medium">
-            <Link
-              href="/"
-              className="hover:underline py-4"
-              onClick={() => setIsOpen(false)}
-            >
-              Home
-            </Link>
-            <Link
-              href="/about"
-              className="hover:underline py-4"
-              onClick={() => setIsOpen(false)}
-            >
-              About
-            </Link>
+            {navItems.map(({ label, href }) => (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setIsOpen(false)}
+                className={`rounded-md px-2 py-3 hover:bg-gray-100 transition ${
+                  pathname === href
+                    ? "font-semibold text-black"
+                    : "text-gray-700"
+                }`}
+              >
+                {label}
+              </Link>
+            ))}
           </nav>
         </div>
       )}

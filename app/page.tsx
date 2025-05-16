@@ -34,7 +34,7 @@ export default function Home() {
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
         <UserFilter />
         <Button
-          className="bg-[#D1EE6E] text-black hover:text-white"
+          className="bg-[#D1EE6E] text-black hover:text-white py-7 px-8 rounded-full"
           onClick={() => onOpen()}
         >
           Add New User
