@@ -1,16 +1,18 @@
+"use client";
+
 import { useState } from "react";
 import { motion } from "motion/react";
 import { toast } from "sonner";
 
-import { User } from "@/lib/api";
+import { User, deleteUser } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { useUserFormDialogStore } from "@/lib/store";
-import { deleteUser } from "@/lib/api";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import UserDelConfirmDialog from "@/components/Templates/UserDelConfirmDialog";
 
 interface UserCardProps {
   user: User;
@@ -20,8 +22,13 @@ interface UserCardProps {
 export default function UserCard({ user, onSuccess }: UserCardProps) {
   const { onOpen } = useUserFormDialogStore();
   const [deleting, setDeleting] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
-  const handleDelete = async () => {
+  const avatarUrl = imgError
+    ? `https://api.dicebear.com/7.x/initials/png?seed=${encodeURIComponent(user.name)}`
+    : user.avatar;
+
+  const handleConfirmDelete = async () => {
     setDeleting(true);
     try {
       await deleteUser(user.id);
@@ -30,13 +37,9 @@ export default function UserCard({ user, onSuccess }: UserCardProps) {
     } catch {
       toast.error("Failed to delete user");
     } finally {
-      setDeleting(false); // ensure reset on both success/fail
+      setDeleting(false);
     }
   };
-  const [imgError, setImgError] = useState(false);
-  const avatarUrl = imgError
-    ? `https://api.dicebear.com/7.x/initials/png?seed=${encodeURIComponent(user.name)}`
-    : user.avatar;
 
   return (
     <motion.div
@@ -59,38 +62,40 @@ export default function UserCard({ user, onSuccess }: UserCardProps) {
         className="h-32 aspect-square rounded-xl object-cover"
       />
 
+      {/* Delete Button */}
       <div className="md:opacity-0 md:group-hover:opacity-100 overflow-hidden absolute top-1 right-1 md:-top-2 md:-right-2 transition-all ease-in-out delay-100">
-        {!deleting && (
-          <HoverCard>
-            <HoverCardTrigger>
-              <Button
-                variant="destructive"
-                size="sm"
-                onClick={handleDelete}
-                aria-label={`Delete user ${user.name}`}
-                className="w-5 h-5 rounded-full cursor-pointer"
+        <UserDelConfirmDialog
+          username={user.name}
+          onConfirm={async () => {
+            await deleteUser(user.id);
+            toast.success("User deleted");
+            onSuccess();
+          }}
+          trigger={
+            <Button
+              variant="destructive"
+              size="icon"
+              className="w-5 h-5 rounded-full cursor-pointer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-4 stroke-3"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="size-4 stroke-3"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18 18 6M6 6l12 12"
-                  />
-                </svg>
-              </Button>
-            </HoverCardTrigger>
-            <HoverCardContent>Remove the Card</HoverCardContent>
-            <div className=""></div>
-          </HoverCard>
-        )}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
+            </Button>
+          }
+        />
       </div>
+
       {/* Profile Info */}
       <div className="overflow-hidden w-full">
         <div className="overflow-auto">
@@ -109,7 +114,7 @@ export default function UserCard({ user, onSuccess }: UserCardProps) {
             onClick={() => onOpen(user)}
             disabled={deleting}
             aria-label={`Edit user ${user.name}`}
-            className=" border border-gray-300 text-gray-700 text-sm font-medium py-4 rounded-lg hover:bg-gray-50 transition"
+            className="border border-gray-300 text-gray-700 text-sm font-medium py-4 rounded-lg hover:bg-gray-50 transition"
           >
             Edit
           </Button>

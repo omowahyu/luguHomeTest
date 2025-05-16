@@ -25,7 +25,7 @@ export default function BasicLayout({ children }: { children: ReactNode }) {
             className="bg-[#D1EE6E] text-black hover:text-white"
             onClick={() => onOpen()}
           >
-            Create User
+            Add New User
           </Button>
         </div>
         <div className="min-h-screen">{children}</div>
