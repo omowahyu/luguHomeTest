@@ -1,8 +1,6 @@
 import {
-  Code2,
   PenSquare,
   ShoppingCart,
-  Globe,
   LayoutTemplate,
   BarChart3,
 } from "lucide-react";

@@ -4,13 +4,10 @@ import { ReactNode } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import UserFormDialog from "@/components/Templates/Home/UserFormDialog";
 
-import { useUserFormDialogStore } from "@/lib/store";
 import Header from "./Header";
 import Footer from "./Footer";
 
 export default function BasicLayout({ children }: { children: ReactNode }) {
-  const { onOpen } = useUserFormDialogStore();
-
   return (
     <div className="min-h-screen flex flex-col bg-[#F9FAF4]">
       <Header />
