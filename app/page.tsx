@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     <BasicLayout>
-      <div className="grid grid-cols-2  gap-6 w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2  gap-6 w-full">
         {isLoading ? (
           <CardSkeleton count={6} />
         ) : (
