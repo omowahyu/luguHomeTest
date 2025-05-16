@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
 import UserFormDialog from "@/components/Templates/UserFormDialog";
 
-import { useUserFormDialogStore, useUserStore } from "@/lib/store";
+import { useUserFormDialogStore } from "@/lib/store";
 
 export default function BasicLayout({ children }: { children: ReactNode }) {
   const { onOpen } = useUserFormDialogStore();
@@ -15,7 +15,7 @@ export default function BasicLayout({ children }: { children: ReactNode }) {
       <header className="bg-white/10 shadow fixed backdrop-blur-lg w-full z-40">
         <div className="max-w-7xl mx-auto my-6">
           <div className="">
-            <h1 className="text-4xl font-bold">hyu's Creations</h1>
+            <h1 className="text-4xl font-bold">hyu&aposs Creations</h1>
             <span className="text-muted-foreground text-sm">
               lugu software - Take Home Test
             </span>
