@@ -7,11 +7,6 @@ import { toast } from "sonner";
 import { User, deleteUser } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { useUserFormDialogStore } from "@/lib/store";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
 import UserDelConfirmDialog from "@/components/Templates/UserDelConfirmDialog";
 
 interface UserCardProps {
@@ -27,19 +22,6 @@ export default function UserCard({ user, onSuccess }: UserCardProps) {
   const avatarUrl = imgError
     ? `https://api.dicebear.com/7.x/initials/png?seed=${encodeURIComponent(user.name)}`
     : user.avatar;
-
-  const handleConfirmDelete = async () => {
-    setDeleting(true);
-    try {
-      await deleteUser(user.id);
-      toast.success("User deleted");
-      onSuccess();
-    } catch {
-      toast.error("Failed to delete user");
-    } finally {
-      setDeleting(false);
-    }
-  };
 
   return (
     <motion.div
