@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { User, deleteUser } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { useUserFormDialogStore } from "@/lib/store";
-import UserDelConfirmDialog from "@/components/Templates/UserDelConfirmDialog";
+import UserDelConfirmDialog from "@/components/Templates/Home/UserDelConfirmDialog";
 
 interface UserCardProps {
   user: User;

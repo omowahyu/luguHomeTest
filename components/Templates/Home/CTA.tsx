@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 
 export default function CallToAction() {
   const whatsappLink = `https://wa.me/6289687407837?text=${encodeURIComponent(
@@ -17,20 +17,20 @@ export default function CallToAction() {
             Let’s connect and explore how we can work together.
           </p>
           <div className="space-x-3">
-            <Button
-              asChild
-              className="mt-2 inline-flex items-center gap-2 bg-emerald-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-emerald-700 transition"
-            >
-              <Link href={`/about`}>Let’s talk</Link>
-            </Button>
             <a
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 inline-flex items-center gap-2 text-slate-800 text-sm px-4 py-2 rounded-lg hover:text-slate-900/70 transition"
+              className="mt-2 inline-flex items-center gap-2 bg-emerald-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-emerald-700 transition ease-in-out"
+            >
+              Let’s talk
+            </a>
+            <Link
+              href={`/about`}
+              className="mt-3 inline-flex items-center gap-2 text-slate-800 text-sm px-4 py-2 rounded-lg hover:text-slate-900/70 hover:font-medium transition ease-in-out"
             >
               About Me
-            </a>
+            </Link>
           </div>
         </div>
 

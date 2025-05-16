@@ -18,6 +18,20 @@ export const useUsersQuery = () => {
   });
 };
 
+interface FilterState {
+  search: string;
+  role: string;
+  setSearch: (value: string) => void;
+  setRole: (value: string) => void;
+}
+
+export const useFilterStore = create<FilterState>((set) => ({
+  search: "",
+  role: "all",
+  setSearch: (value) => set({ search: value }),
+  setRole: (value) => set({ role: value }),
+}));
+
 export const useUserStore = create<UserStore>((set) => ({
   users: [],
   setUsers: (users) => set({ users }),
