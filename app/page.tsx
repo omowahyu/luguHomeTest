@@ -1,33 +1,30 @@
 "use client";
 
-import { useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Toaster } from "@/components/ui/sonner";
-import UserCard from "@/components/UserCard";
-import UserFormDialog from "@/components/UserFormDialog";
+import { useUsersQuery } from "@/lib/store";
+import BasicLayout from "@/components/Templates/BasicLayout";
+import UserCard from "@/components/Templates/UserCard";
+import CardSkeleton from "@/components/Templates/Skeleton";
 import { useUserFormDialogStore, useUserStore } from "@/lib/store";
+import CallToAction from "@/components/Templates/CTA";
 
 export default function Home() {
-  const { onOpen } = useUserFormDialogStore();
-  const { users, fetchUsers } = useUserStore();
-
-  useEffect(() => {
-    fetchUsers(); // Fetch users on initial render
-  }, [fetchUsers]);
+  const { data: users = [], isLoading, refetch } = useUsersQuery();
 
   return (
-    <main className="container mx-auto p-4">
-      <Toaster />
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">User Management</h1>
-        <Button onClick={() => onOpen()}>Create User</Button>
+    <BasicLayout>
+      <div className="grid grid-cols-2  gap-6 w-full">
+        {isLoading ? (
+          <CardSkeleton count={6} />
+        ) : (
+          <>
+            {users.map((user) => (
+              <UserCard key={user.id} user={user} onSuccess={refetch} />
+            ))}
+          </>
+        )}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {users.map((user) => (
-          <UserCard key={user.id} user={user} onSuccess={fetchUsers} />
-        ))}
-      </div>
-      <UserFormDialog />
-    </main>
+
+      <CallToAction />
+    </BasicLayout>
   );
 }

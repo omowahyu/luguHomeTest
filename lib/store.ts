@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { useQuery } from "@tanstack/react-query";
 import { User, getUsers } from "@/lib/api";
 
 interface UserStore {
@@ -6,6 +7,16 @@ interface UserStore {
   setUsers: (users: User[]) => void;
   fetchUsers: () => Promise<void>;
 }
+
+export const useUsersQuery = () => {
+  return useQuery<User[]>({
+    queryKey: ["users"],
+    queryFn: getUsers,
+    refetchInterval: 10000,
+    refetchOnWindowFocus: true,
+    staleTime: 15000,
+  });
+};
 
 export const useUserStore = create<UserStore>((set) => ({
   users: [],

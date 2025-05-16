@@ -59,7 +59,7 @@ export default function UserFormDialog() {
   }, [selectedUser, form]);
 
   const onSubmit = async (data: UserFormData) => {
-    const fallbackAvatar = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(data.name)}`;
+    const fallbackAvatar = `https://api.dicebear.com/7.x/initials/png?seed=${encodeURIComponent(data.name)}`;
 
     try {
       if (selectedUser) {
