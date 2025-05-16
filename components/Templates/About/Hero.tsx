@@ -1,3 +1,5 @@
+"use client"; // Tambahkan ini di baris pertama!
+
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
@@ -18,20 +20,16 @@ export default function Hero() {
         <p className="text-gray-600 mb-4">
           Fast-learning Software Engineer who passionate about building
           scalable, user-first digital products. Thrives in dynamic
-          environments, Proficient in NextJS, JS, Rust, GO, Laravel, Wordpress,
-          shopify and Flutter with the flexibility adapt to new languages and
-          frameworks as needed.
+          environments. Proficient in NextJS, JS, Rust, GO, Laravel, Wordpress,
+          Shopify, and Flutter with flexibility to adapt to new languages and
+          frameworks.
         </p>
         <div className="flex gap-4 pt-2 justify-center md:justify-start">
-          <a
-            href="/cv.pdf" // Make sure this file exists in /public folder
-            download
-          >
+          <a href="/cv.pdf" download>
             <Button variant="default" className="py-5 px-7 rounded-full">
               Download Resume
             </Button>
           </a>
-
           <a
             href="https://wa.me/6289687407837?text=Hi%20Wahyu%2C%20I%27m%20interested%20in%20working%20together%20with%20you!"
             target="_blank"

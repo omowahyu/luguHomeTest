@@ -37,6 +37,7 @@ export default function Header() {
             <Link
               key={href}
               href={href}
+              aria-current={pathname === href ? "page" : undefined}
               className={`transition hover:underline ${
                 pathname === href ? "font-semibold text-black" : "text-gray-700"
               }`}

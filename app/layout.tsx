@@ -10,10 +10,10 @@ const Mono = Noto_Sans_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://lugutest.moyu.my.id"),
   title: "Lugu Software – Take Home Test",
   description:
     "A user management interface built as a take-home test using Next.js.",
-  viewport: "width=device-width, initial-scale=1.0",
   openGraph: {
     title: "Lugu Software – Take Home Test",
     description: "Explore the UI implementation by Wahyu Chrisdianto.",
@@ -37,6 +37,10 @@ export const metadata: Metadata = {
     images: ["/next.png"],
   },
 };
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export default function RootLayout({
   children,
@@ -46,7 +50,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${Sans.variable} ${Mono.variable} antialiased md:subpixel-antialiased`}
+        className={`${Sans.variable} ${Mono.variable} antialiased md:subpixel-antialiased scroll-smooth`}
       >
         <Providers>{children}</Providers>
       </body>
