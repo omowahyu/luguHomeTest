@@ -93,7 +93,7 @@ export default function UserCard({ user, onSuccess }: UserCardProps) {
       </div>
       {/* Profile Info */}
       <div className="flex-1">
-        <div>
+        <div className="overflow-auto">
           <span className="text-gray-500/70 text-xs bg-slate-800/10 rounded-full px-2 py-1">
             {user.role}
           </span>
