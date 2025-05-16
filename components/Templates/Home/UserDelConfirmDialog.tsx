@@ -14,13 +14,13 @@ import { Button } from "@/components/ui/button";
 interface UserDelConfirmDialogProps {
   trigger: React.ReactNode;
   username: string;
-  onConfirm: () => Promise<void>;
+  onConfirmAction: () => Promise<void>;
 }
 
 export default function UserDelConfirmDialog({
   trigger,
   username,
-  onConfirm,
+  onConfirmAction,
 }: UserDelConfirmDialogProps) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ export default function UserDelConfirmDialog({
   const handleDelete = async () => {
     setLoading(true);
     try {
-      await onConfirm();
+      await onConfirmAction();
       setOpen(false);
     } finally {
       setLoading(false);

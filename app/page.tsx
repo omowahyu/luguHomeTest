@@ -46,7 +46,7 @@ export default function Home() {
           <CardSkeleton count={6} />
         ) : (
           filteredUsers.map((user) => (
-            <UserCard key={user.id} user={user} onSuccess={refetch} />
+            <UserCard key={user.id} user={user} onSuccessAction={refetch} />
           ))
         )}
       </div>

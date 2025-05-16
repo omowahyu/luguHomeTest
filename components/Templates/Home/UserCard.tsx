@@ -11,10 +11,10 @@ import UserDelConfirmDialog from "@/components/Templates/Home/UserDelConfirmDial
 
 interface UserCardProps {
   user: User;
-  onSuccess: () => void;
+  onSuccessAction: () => void;
 }
 
-export default function UserCard({ user, onSuccess }: UserCardProps) {
+export default function UserCard({ user, onSuccessAction }: UserCardProps) {
   const { onOpen } = useUserFormDialogStore();
   const [deleting] = useState(false);
   const [imgError, setImgError] = useState(false);
@@ -48,10 +48,10 @@ export default function UserCard({ user, onSuccess }: UserCardProps) {
       <div className="md:opacity-0 md:group-hover:opacity-100 overflow-hidden absolute top-1 right-1 md:-top-2 md:-right-2 transition-all ease-in-out delay-100">
         <UserDelConfirmDialog
           username={user.name}
-          onConfirm={async () => {
+          onConfirmAction={async () => {
             await deleteUser(user.id);
             toast.success("User deleted");
-            onSuccess();
+            onSuccessAction();
           }}
           trigger={
             <Button
