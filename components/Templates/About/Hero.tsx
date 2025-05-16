@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 
 export default function Hero() {
   return (
-    <section className="flex flex-col md:flex-row items-center gap-8 mb-16">
-      <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-md">
+    <section className="flex flex-col md:flex-row gap-8 md:mt-16 mb-16">
+      <div className="relative w-48 h-48 rounded-4xl overflow-hidden border-4 border-white shadow-md">
         <Image
           src="https://github.com/omoWahyu.png?size=400"
           alt="Profile"
@@ -12,7 +12,7 @@ export default function Hero() {
           className="object-cover"
         />
       </div>
-      <div className="text-center md:text-left max-w-2xl">
+      <div className="text-center md:text-left max-w-2xl pt-4">
         <p className="text-gray-500 text-sm uppercase">Fullstack Developer</p>
         <h1 className="text-3xl font-bold mt-1 mb-2">Wahyudi Chrisdianto</h1>
         <p className="text-gray-600 mb-4">
@@ -22,12 +22,14 @@ export default function Hero() {
           shopify and Flutter with the flexibility adapt to new languages and
           frameworks as needed.
         </p>
-        <div className="flex gap-4 justify-center md:justify-start">
+        <div className="flex gap-4 pt-2 justify-center md:justify-start">
           <a
             href="/cv.pdf" // Make sure this file exists in /public folder
             download
           >
-            <Button variant="default">Download CV</Button>
+            <Button variant="default" className="py-5 px-7 rounded-full">
+              Download Resume
+            </Button>
           </a>
 
           <a
@@ -35,7 +37,12 @@ export default function Hero() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Button variant="outline">Whatsapp</Button>
+            <Button
+              variant="outline"
+              className="py-5 px-7 border-lime-500 bg-lime-200/50 hover:bg-lime-300/100 transition-all ease-in-out rounded-full"
+            >
+              Whatsapp
+            </Button>
           </a>
         </div>
       </div>

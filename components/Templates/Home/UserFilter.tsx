@@ -1,4 +1,3 @@
-import { useFilterStore } from "@/lib/store";
 import {
   Select,
   SelectContent,
@@ -6,9 +5,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useFilterStore } from "@/lib/store";
 
 export default function UserFilter() {
-  const { search, setSearch, role, setRole } = useFilterStore();
+  const { search, role, setSearch, setRole } = useFilterStore();
 
   return (
     <div className="flex flex-row gap-4 items-start sm:items-center rounded-full w-full border border-gray-300 px-4 ">
@@ -19,7 +19,7 @@ export default function UserFilter() {
         placeholder="Search by name or email"
         className="w-full py-4 outline-0"
       />
-      <Select value={role} onValueChange={setRole}>
+      <Select value={role} onValueChange={(value) => setRole(value)}>
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Select role" />
         </SelectTrigger>

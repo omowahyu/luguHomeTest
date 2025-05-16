@@ -16,7 +16,6 @@ interface UserCardProps {
 
 export default function UserCard({ user, onSuccessAction }: UserCardProps) {
   const { onOpen } = useUserFormDialogStore();
-  const [deleting] = useState(false);
   const [imgError, setImgError] = useState(false);
 
   const avatarUrl = imgError
@@ -80,12 +79,12 @@ export default function UserCard({ user, onSuccessAction }: UserCardProps) {
 
       {/* Profile Info */}
       <div className="overflow-hidden w-full">
-        <div className="overflow-auto">
+        <div className="overflow-auto pt-4">
+          <h2 className="text-lg font-semibold text-gray-900">{user.name}</h2>
+          <p className="text-sm text-gray-500 mb-2">{user.email}</p>
           <span className="text-gray-500/70 text-xs bg-slate-800/10 rounded-full px-2 py-1">
             {user.role}
           </span>
-          <h2 className="text-lg font-semibold text-gray-900">{user.name}</h2>
-          <p className="text-sm text-gray-500">{user.email}</p>
         </div>
 
         {/* Action Buttons */}
@@ -94,7 +93,6 @@ export default function UserCard({ user, onSuccessAction }: UserCardProps) {
             variant="outline"
             size="sm"
             onClick={() => onOpen(user)}
-            disabled={deleting}
             aria-label={`Edit user ${user.name}`}
             className="border border-gray-300 text-gray-700 text-sm font-medium py-4 rounded-lg hover:bg-gray-50 transition"
           >

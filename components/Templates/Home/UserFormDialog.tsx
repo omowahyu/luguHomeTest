@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion, AnimatePresence } from "motion/react";
+import { useQueryClient } from "@tanstack/react-query";
 
-import { createUser, updateUser } from "@/lib/api";
 import { UserFormData, userSchema } from "@/lib/schema";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,12 +24,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { useUserFormDialogStore, useUserStore } from "@/lib/store";
+import { useUserFormDialogStore } from "@/lib/store";
+import { createUser, updateUser } from "@/lib/api";
 
 export default function UserFormDialog() {
   const { isOpen, selectedUser, onClose } = useUserFormDialogStore();
-  const { fetchUsers } = useUserStore();
-
+  // Tambahkan ini:
   const form = useForm<UserFormData>({
     resolver: zodResolver(userSchema),
     defaultValues: {
@@ -40,46 +40,30 @@ export default function UserFormDialog() {
     },
   });
 
-  useEffect(() => {
-    if (selectedUser) {
-      form.reset({
-        name: selectedUser.name,
-        email: selectedUser.email,
-        password: "",
-        avatar: selectedUser.avatar,
-      });
-    } else {
-      form.reset({
-        name: "",
-        email: "",
-        password: "",
-        avatar: "",
-      });
-    }
-  }, [selectedUser, form]);
+  const queryClient = useQueryClient();
+
   const onSubmit = async (data: UserFormData) => {
     try {
       if (selectedUser) {
-        await updateUser(selectedUser.id, {
-          ...data,
-          ...(data.avatar ? { avatar: data.avatar } : {}),
-        });
-        toast.success("User updated successfully");
+        await updateUser(selectedUser.id, data);
+        toast.success("User updated");
       } else {
-        const fallbackAvatar = `https://api.dicebear.com/7.x/initials/png?seed=${encodeURIComponent(data.name)}`;
+        const fallbackAvatar = `https://api.dicebear.com/7.x/initials/png?seed=${encodeURIComponent(
+          data.name,
+        )}`;
         await createUser({
           ...data,
           role: "customer",
           avatar: data.avatar?.trim() ? data.avatar : fallbackAvatar,
         });
-        toast.success("User created successfully");
+        toast.success("User created");
       }
 
-      await fetchUsers();
+      await queryClient.invalidateQueries({ queryKey: ["users"] }); // 🟢 Re-fetch list
       onClose();
       form.reset();
     } catch {
-      toast.error("Something went wrong", { description: "Error" });
+      toast.error("Something went wrong");
     }
   };
 

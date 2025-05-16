@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Lugu Software – Take Home Test",
-    description: "User management app built with Next.js 14 and Tailwind CSS.",
+    description: "User management app built with Next.js 15 and Tailwind CSS.",
     images: ["/next.png"],
   },
 };
