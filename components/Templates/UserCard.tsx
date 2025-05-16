@@ -16,7 +16,7 @@ interface UserCardProps {
 
 export default function UserCard({ user, onSuccess }: UserCardProps) {
   const { onOpen } = useUserFormDialogStore();
-  const [deleting, setDeleting] = useState(false);
+  const [deleting] = useState(false);
   const [imgError, setImgError] = useState(false);
 
   const avatarUrl = imgError
