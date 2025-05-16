@@ -57,10 +57,7 @@ export default function UserFormDialog() {
       });
     }
   }, [selectedUser, form]);
-
   const onSubmit = async (data: UserFormData) => {
-    const fallbackAvatar = `https://api.dicebear.com/7.x/initials/png?seed=${encodeURIComponent(data.name)}`;
-
     try {
       if (selectedUser) {
         await updateUser(selectedUser.id, {
@@ -69,6 +66,7 @@ export default function UserFormDialog() {
         });
         toast.success("User updated successfully");
       } else {
+        const fallbackAvatar = `https://api.dicebear.com/7.x/initials/png?seed=${encodeURIComponent(data.name)}`;
         await createUser({
           ...data,
           role: "customer",
@@ -80,7 +78,7 @@ export default function UserFormDialog() {
       await fetchUsers();
       onClose();
       form.reset();
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong", { description: "Error" });
     }
   };
